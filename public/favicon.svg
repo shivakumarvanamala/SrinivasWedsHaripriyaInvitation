@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#E8C97A"/>
+      <stop offset="0.5" stop-color="#C9A227"/>
+      <stop offset="1" stop-color="#A67C00"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#7B1E1E"/>
+  <!-- stylised diya / lotus flame -->
+  <path d="M32 12c3 6 9 9 9 16a9 9 0 0 1-18 0c0-7 6-10 9-16z" fill="url(#g)"/>
+  <path d="M16 44c4 5 10 7 16 7s12-2 16-7c-4 3-10 4-16 4s-12-1-16-4z" fill="url(#g)"/>
+  <circle cx="32" cy="30" r="3" fill="#FDF6E3"/>
+</svg>
