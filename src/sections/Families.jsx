@@ -21,8 +21,12 @@ function FamilyCard({ side, icon, delay }) {
       <span className="gold-rule mx-auto my-4 w-2/3" />
       {/* both parent names on ONE line — never wrapping mid-name */}
       <p className="whitespace-nowrap font-sans text-[0.82rem] font-semibold text-cream sm:text-sm">
-        {t(side.father)} <span className="text-gold-light">&amp;</span> {t(side.mother)}
+        {t(side.parents)}
       </p>
+      {/* brothers / sisters — same small gold line as before */}
+      {side.siblings && t(side.siblings) && (
+        <p className="mt-2 font-sans text-xs text-gold/80">{t(side.siblings)}</p>
+      )}
     </motion.div>
   )
 }
@@ -36,7 +40,7 @@ export default function Families({ content }) {
     <section id="families" className="section-pad relative bg-plum-deep-radial jali">
       <div className="mx-auto max-w-5xl text-center">
         <Kalash className="mx-auto h-16 w-16 text-gold" />
-        <h2 className="mt-3 font-heading text-3xl text-foil md:text-5xl">{t(fam.heading)}</h2>
+        <h2 className="mt-3 font-heading text-3xl leading-normal text-foil md:text-5xl">{t(fam.heading)}</h2>
         <p className="mx-auto mt-3 max-w-xl font-display text-lg italic text-cream/70">{t(fam.intro)}</p>
 
         <Divider className="my-10 text-gold" />

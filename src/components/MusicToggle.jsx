@@ -65,7 +65,7 @@ export default function MusicToggle({ src, label = 'Music', start = false }) {
         onClick={toggle}
         aria-label={enabled ? `Mute ${label}` : `Play ${label}`}
         title={enabled ? `Mute ${label}` : `Play ${label}`}
-        className={`fixed bottom-5 right-5 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-plum-soft text-gold-light shadow-gold ring-1 ring-gold/50 transition hover:scale-105 ${
+        className={`btn-gold fixed bottom-5 right-5 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-plum-soft text-gold-light ring-1 ring-gold/50 ${
           visible ? 'opacity-100' : 'pointer-events-none opacity-0'
         }`}
       >

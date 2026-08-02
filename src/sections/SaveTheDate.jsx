@@ -19,7 +19,7 @@ export default function SaveTheDate({ content }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="font-heading text-3xl text-foil md:text-5xl"
+          className="font-heading text-3xl leading-normal text-foil md:text-5xl"
         >
           {t(std.heading)}
         </motion.h2>
@@ -50,7 +50,13 @@ export default function SaveTheDate({ content }) {
             style={{ background: 'linear-gradient(135deg,#FFE08A,#F4B400,#C98A00)' }}
           >
             {/* `key={lang}` re-mounts the foil cleanly when the language toggles */}
-            <ScratchCard key={lang} width={340} height={210} onComplete={() => setFired(true)}>
+            <ScratchCard
+              key={lang}
+              width={340}
+              height={210}
+              hint={t(std.scratchHint)}
+              onComplete={() => setFired(true)}
+            >
               <div className="flex h-full w-full flex-col items-center justify-center rounded-2xl bg-plum-soft px-4 text-center">
                 <span className={`font-display text-base text-gold-light ${lang === 'en' ? 'uppercase tracking-[0.25em]' : ''}`}>
                   {t(std.revealedLabel)}
@@ -58,7 +64,10 @@ export default function SaveTheDate({ content }) {
                 <span className="mt-2 font-heading text-2xl text-foil md:text-3xl">
                   {t(weddingDateLabel)}
                 </span>
-                <span className="mt-2 font-sans text-sm text-cream/75">{t(muhuratLabel)}</span>
+                {/* muhurat detail at HALF the date's font size (2xl→0.75rem, 3xl→0.9375rem) */}
+                <span className="mt-2 font-sans text-[0.75rem] leading-snug text-cream/75 md:text-[0.9375rem]">
+                  {t(muhuratLabel)}
+                </span>
               </div>
             </ScratchCard>
           </motion.div>

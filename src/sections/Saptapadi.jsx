@@ -130,7 +130,7 @@ export default function Saptapadi({ content }) {
     <section id="saptapadi" ref={ref} className="section-pad relative overflow-hidden bg-plum jali">
       <div className="mx-auto max-w-3xl text-center">
         <Agni className="mx-auto h-16 w-16 text-gold" />
-        <h2 className="mt-3 font-heading text-3xl text-foil md:text-5xl">{t(sapt.heading)}</h2>
+        <h2 className="mt-3 font-heading text-3xl leading-normal text-foil md:text-5xl">{t(sapt.heading)}</h2>
         <p className="mx-auto mt-3 max-w-xl font-display text-lg italic text-cream/70">{t(sapt.intro)}</p>
         <Divider className="my-8 text-gold" />
 

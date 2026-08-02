@@ -43,7 +43,7 @@ export default function Countdown({ content }) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="font-heading text-3xl text-foil md:text-5xl"
+          className="font-heading text-3xl leading-normal text-foil md:text-5xl"
         >
           {isHere ? t(cd.headingHere) : t(cd.heading)}
         </motion.h2>

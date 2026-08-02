@@ -93,7 +93,7 @@ export default function Hero({ content, opened, setOpened }) {
               onClick={() => setOpened(true)}
               exit={{ opacity: 0, scale: 0.6 }}
               transition={{ duration: 0.5 }}
-              className="absolute z-50 flex flex-col items-center gap-4"
+              className="absolute z-50 flex cursor-pointer flex-col items-center gap-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gold-light"
               aria-label="Open the invitation"
             >
               <span className="flex h-32 w-32 items-center justify-center rounded-full border border-gold/60 bg-plum-soft text-gold shadow-glow animate-glow md:h-40 md:w-40">
@@ -173,12 +173,83 @@ export default function Hero({ content, opened, setOpened }) {
           transition={{ delay: 1.6, duration: 1 }}
           className="mt-10"
         >
-          <a
-            href="#savethedate"
-            className="inline-block rounded-full bg-gold-gradient px-8 py-3 font-heading tracking-widest text-plum-deep shadow-glow transition hover:scale-105"
-          >
-            {t(ui.hero.cta)}
-          </a>
+          {/* Guests kept walking past this CTA, so it now shouts to be tapped:
+              a real ball-bounce (squash included), a pulsing halo behind it,
+              and a sweeping glint across the gold. */}
+          <span className="relative inline-flex items-center justify-center">
+            {/* pulsing halo — a soft gold glow growing and fading behind the
+                button, so the eye is pulled here even in peripheral vision */}
+            {opened && (
+              <motion.span
+                aria-hidden="true"
+                className="pointer-events-none absolute -inset-8 rounded-full"
+                style={{
+                  background:
+                    'radial-gradient(closest-side, rgba(243,214,151,0.75), rgba(243,214,151,0.28) 55%, transparent 78%)',
+                }}
+                animate={{ opacity: [0.4, 1, 0.4], scale: [0.88, 1.18, 0.88] }}
+                transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut', delay: 1.8 }}
+              />
+            )}
+
+            {/* the bouncing button — up fast, fall back with a squash on landing,
+                then a beat of rest before the next bounce */}
+            <motion.a
+              href="#savethedate"
+              className="btn-gold btn-animated relative z-10 inline-flex items-center gap-2 overflow-hidden rounded-full bg-gold-gradient px-8 py-3.5 font-heading text-lg tracking-widest text-plum-deep"
+              animate={
+                opened
+                  ? {
+                      y: [0, -22, 0, -9, 0, 0],
+                      scaleX: [1, 0.97, 1.08, 0.99, 1.04, 1],
+                      scaleY: [1, 1.05, 0.9, 1.02, 0.97, 1],
+                    }
+                  : {}
+              }
+              transition={{
+                duration: 1.5,
+                times: [0, 0.28, 0.52, 0.7, 0.85, 1],
+                repeat: Infinity,
+                repeatDelay: 0.9,
+                ease: 'easeOut',
+                delay: 2,
+              }}
+              style={{ transformOrigin: 'center bottom' }}
+            >
+              {/* glint — a band of light sweeping across the gold foil */}
+              {opened && (
+                <motion.span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-y-0 w-1/3"
+                  style={{
+                    background:
+                      'linear-gradient(100deg, transparent, rgba(255,255,255,0.9), transparent)',
+                  }}
+                  initial={{ left: '-40%' }}
+                  animate={{ left: '130%' }}
+                  transition={{
+                    duration: 1.2,
+                    repeat: Infinity,
+                    repeatDelay: 1.2,
+                    ease: 'easeInOut',
+                    delay: 2.4,
+                  }}
+                />
+              )}
+
+              <span className="relative z-10">{t(ui.hero.cta)}</span>
+              {/* the arrow bobs downward, pointing at what the tap reveals */}
+              <motion.span
+                aria-hidden="true"
+                className="relative z-10"
+                animate={opened ? { y: [0, 4, 0] } : {}}
+                transition={{ duration: 1, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+              >
+                ↓
+              </motion.span>
+            </motion.a>
+
+          </span>
         </motion.div>
       </motion.div>
     </section>

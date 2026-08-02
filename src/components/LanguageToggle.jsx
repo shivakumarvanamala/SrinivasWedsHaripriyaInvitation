@@ -10,8 +10,8 @@ export default function LanguageToggle() {
       <button
         onClick={() => setLang(code)}
         aria-pressed={active}
-        className={`rounded-full px-3 py-1 text-sm transition ${font} ${
-          active ? 'bg-gold-gradient text-plum-deep shadow-glow' : 'text-gold-light hover:text-foil'
+        className={`cursor-pointer rounded-full px-3 py-1 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gold-light ${font} ${
+          active ? 'bg-gold-gradient text-plum-deep shadow-glow' : 'text-gold-light hover:bg-gold/15 hover:text-foil'
         }`}
       >
         {label}

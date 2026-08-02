@@ -27,14 +27,19 @@ export const content = {
       // `name` = short name, used only in the big hero "X weds Y" line
       name: { te: 'శ్రీనివాస్', en: 'Srinivas' },
       // `fullName` = shown as the heading in the Couple section (with surname)
+      // `honorific` = the చి. / చి.ల.సౌ. prefix — rendered at HALF the name's
+      //               font size, just before the name. Set '' to hide.
+      honorific: { te: 'చి.', en: '' },
       fullName: { te: 'వనమాల శ్రీనివాస్', en: 'Vanamala Srinivas' },
       // `monogram` = the letter shown inside the arch when no photo is added
       monogram: { te: 'శ్రీ', en: 'S' },
       // `relation` (small line) + `parents` (the two names, kept on one line)
-      relation: { te: 'వీరి పెద్ద కుమారుడు', en: 'Elder son of' },
+      // Telugu is shown AFTER the parents' names ("<parents> ల ప్రథమ పుత్రుడు");
+      // English is shown BEFORE them ("Elder son of / <parents>").
+      relation: { te: 'ల ప్రథమ పుత్రుడు', en: 'Elder son of' },
       parents: {
-        te: 'శ్రీ వనమాల వెంకన్న & శ్రీమతి వనమాల సంధ్యారాణి',
-        en: 'Mr. Vanamala Venkanna & Mrs. Vanamala Sandhya Rani',
+        te: 'శ్రీ వనమాల వెంకన్న  - సంధ్యారాణి',
+        en: 'Mr & Mr.s Vanamala Venkanna - Sandhya Rani',
       },
       about: {
         te: 'వంశ గౌరవాన్ని నిలబెడుతూ, పెద్దల దీవెనలతో జీవితంలో ముందడుగు వేస్తున్న మా ముద్దుల చిరంజీవి.',
@@ -44,12 +49,13 @@ export const content = {
     },
     bride: {
       name: { te: 'హరి ప్రియ', en: 'Hari Priya' },
+      honorific: { te: 'చి.ల.సౌ.', en: '' },
       fullName: { te: 'రామిని హరి ప్రియ', en: 'Ramini Hari Priya' },
       monogram: { te: 'హ', en: 'H' },
-      relation: { te: 'వీరి పెద్ద కుమార్తె', en: 'Elder daughter of' },
+      relation: { te: 'ల ప్రథమ పుత్రిక', en: 'Elder daughter of' },
       parents: {
-        te: 'శ్రీ రామిని చంద్రశేఖర్ & శ్రీమతి రామిని ఉషారాణి',
-        en: 'Mr. Ramini Chandra Shekar & Mrs. Ramini Usha Rani',
+        te: 'శ్రీ రామిని చంద్రశేఖర్  - ఉషారాణి',
+        en: 'Mr & Mr.s Ramini Chandra Shekar - Usha Rani',
       },
       about: {
         te: 'ఇంటికి వెలుగై, అందరి మన్ననలు అందుకుంటున్న మా గారాల చిరంజీవి సౌభాగ్యవతి.',
@@ -58,17 +64,6 @@ export const content = {
       photo: '/images/bride.jpg',
     },
     weds: { te: 'వివాహం', en: 'weds' },
-  },
-
-  // Groom's brothers — small line shown under the groom's card. Set '' to hide.
-  groomBrothers: {
-    te: 'సోదరులు: వనమాల శ్రీకాంత్, వనమాల శివ కుమార్',
-    en: 'Brothers: Vanamala Srikanth, Vanamala Shiva Kumar',
-  },
-  // Bride's sister — small line shown under the bride's card. Set '' to hide.
-  brideSisters: {
-    te: 'సోదరి: రామిని ధాన్య',
-    en: 'Sister: Ramini Dhanya',
   },
 
   // ──────────────────────────────────────────────────────────────────
@@ -90,11 +85,11 @@ export const content = {
   // ──────────────────────────────────────────────────────────────────
   weddingDate: '2026-08-23T11:23:00',
   weddingDateLabel: {
-    te: '2026 ఆగస్టు 23, ఆదివారం',
+    te: 'తేది. 23-08-2026 ఆదివారం',
     en: 'Sunday, 23rd August 2026',
   },
   muhuratLabel: {
-    te: 'ఉదయం 11:23 గంటల శుభ లగ్నమున',
+    te: 'ఉ.గం. 11-23 ని.లకు — మూల నక్షత్రయుక్త, తుల లగ్న సుముహూర్తమున',
     en: 'Shubh Muhurat · 11:23 AM',
   },
 
@@ -104,37 +99,44 @@ export const content = {
   //     `date`, `time`, `venue` are shown to guests → bilingual.
   //     `mapUrl` = paste a Google Maps link → a "📍 View Map" button appears.
   //              (Leave '' to hide the button.)
+  //     `embedUrl` = Google Maps EMBED url → shows a live map preview at the top
+  //              of the card (same look as the Vivaha Vedika card).
+  //              (Leave '' / omit to show no map preview.)
   // ──────────────────────────────────────────────────────────────────
   events: [
     {
-      // Haldi — the day BEFORE the wedding, at home
+      // Upanayanam — the day BEFORE the wedding, at home
       icon: 'haldi',
-      name: { te: 'హల్దీ', en: 'Haldi' },
-      tagline: { te: 'పసుపు పారాణితో పెళ్ళికళ', en: 'A morning of turmeric & blessings' },
-      date: { te: '2026 ఆగస్టు 22, శనివారం', en: 'Saturday, 22nd August 2026' },
-      time: { te: 'ఉదయం 10 గంటల నుండి', en: '10:00 AM onwards' },
-      venue: { te: 'మా స్వగృహం', en: 'Our Residence' },
-      mapUrl: 'https://maps.google.com/?q=Hyderabad', // ← replace with home location
+      name: { te: 'ఉపనయనము', en: 'Upanayanam' },
+      tagline: { te: 'బ్రహ్మోపదేశ శుభ సంస్కారము', en: 'The sacred thread ceremony' },
+      date: { te: 'తేది. 22-08-2026 శనివారం', en: 'Saturday, 22nd August 2026' },
+      time: { te: 'ఉ.గం. 10-00 లకు', en: '10:00 AM onwards' },
+      venue: { te: 'మా  స్వగృహము నందు', en: 'At our Residence' },
+      mapUrl: 'https://goo.gl/maps/WLW9L16uCpcQmBNC9',
+      embedUrl: 'https://www.google.com/maps?q=17.428587,79.949118&z=15&output=embed',
     },
     {
       // Wedding — main day, at the hall (TODO: replace venue name + map link)
       icon: 'wedding',
-      name: { te: 'కల్యాణ మహోత్సవం', en: 'Vivah · Wedding' },
-      tagline: { te: 'ఏడడుగుల మూడుముళ్ళ పవిత్ర బంధం', en: 'The sacred seven vows' },
-      date: { te: '2026 ఆగస్టు 23, ఆదివారం', en: 'Sunday, 23rd August 2026' },
-      time: { te: 'ఉదయం 11:23 శుభ లగ్నమున', en: '11:23 AM · Shubh Muhurat' },
-      venue: { te: 'కల్యాణ మండపం', en: 'Wedding Hall' },
-      mapUrl: 'https://maps.google.com/?q=Hyderabad', // ← replace with hall location
+      name: { te: 'సుముహూర్తము', en: 'Wedding' },
+      tagline: { te: 'ఏడడుగుల మూడుముళ్ళ పవిత్ర బంధము', en: 'The sacred seven vows' },
+      date: { te: 'తేది. 23-08-2026 ఆదివారం', en: 'Sunday, 23rd August 2026' },
+      time: { te: 'ఉ.గం. 11-23 ని.లకు, తుల లగ్నమున', en: '11:23 AM · Shubh Muhurat' },
+      venue: { te: 'శ్రీ జగతి గార్డెన్స్, రామారం, హన్మకొండ', en: 'Sree Jagati Gardens, Ramaram, Hanamkonda' },
+      mapUrl: 'https://maps.app.goo.gl/UtWCse2Rxahxf8FbA',
+      embedUrl:
+        'https://www.google.com/maps?q=Sree+Jagati+Gardens,+Main+Rd,+opp.+GMR+Gardens,+Bheemaram,+Hanamkonda,+Telangana+506015&output=embed',
     },
     {
       // Satyanarayana Swamy Vratham — the day AFTER the wedding, at home, from 10 AM
       icon: 'vratham',
-      name: { te: 'సత్యనారాయణ స్వామి వ్రతం', en: 'Satyanarayana Swamy Vratham' },
-      tagline: { te: 'శ్రీ సత్యనారాయణ స్వామి అనుగ్రహం కోసం', en: 'A sacred puja seeking divine blessings' },
-      date: { te: '2026 ఆగస్టు 24, సోమవారం', en: 'Monday, 24th August 2026' },
-      time: { te: 'ఉదయం 10 గంటల నుండి', en: '10:00 AM onwards' },
-      venue: { te: 'మా స్వగృహం', en: 'Our Residence' },
-      mapUrl: 'https://maps.google.com/?q=Hyderabad', // ← replace with home location
+      name: { te: 'సత్యనారాయణ స్వామి వ్రతము', en: 'Satyanarayana Swamy Vratham' },
+      tagline: { te: 'శ్రీ సత్యనారాయణ స్వామి అనుగ్రహము కోసము', en: 'A sacred puja seeking divine blessings' },
+      date: { te: 'తేది. 24-08-2026 సోమవారం', en: 'Monday, 24th August 2026' },
+      time: { te: 'ఉ.గం. 9-00 లకు', en: '9:00 AM onwards' },
+      venue: { te:'మా  స్వగృహము నందు', en: 'At Our Residence' },
+      mapUrl: 'https://goo.gl/maps/WLW9L16uCpcQmBNC9',
+      embedUrl: 'https://www.google.com/maps?q=17.428587,79.949118&z=15&output=embed',
     },
   ],
 
@@ -146,20 +148,34 @@ export const content = {
     show: true,
     heading: { te: 'రెండు కుటుంబాల కల్యాణ బంధం', en: 'Two Families, One Bond' },
     intro: {
-      te: 'పెద్దల దీవెనలతో రెండు కుటుంబాలు ఒక్కటవుతున్న ఈ శుభ సందర్భంలో మీ అందరి సమక్షం మాకు ఎంతో సంతోషం.',
+      te: 'పెద్దల ఆశీస్సులతో ఇరు కుటుంబములు ఒక్కటవుతున్న ఈ శుభ సందర్భమున తమ సమక్షము మాకు ఎంతో సంతోషదాయకము.',
       en: 'An arranged alliance blessed by elders — where two families come together as one, and a lifetime of togetherness begins.',
     },
     groomSide: {
       title: { te: 'వరుని తరఫున', en: "Groom's Family" },
-      father: { te: 'శ్రీ వనమాల వెంకన్న', en: 'Mr. Vanamala Venkanna' },
-      mother: { te: 'శ్రీమతి వనమాల సంధ్యారాణి', en: 'Mrs. Vanamala Sandhya Rani' },
-      note: { te: 'మీ రాకతో మా ఇంటి శుభకార్యానికి శోభ చేకూర్చండి', en: 'We warmly welcome you to share in our joy' },
+      // `parents` — both names on one line (same wording as the Couple section)
+      parents: {
+        te: 'శ్రీ వనమాల వెంకన్న  - సంధ్యారాణి',
+        en: 'Mr & Mr.s Vanamala Venkanna - Sandhya Rani',
+      },
+      note: { te: 'తమ రాకతో మా ఇంటి శుభకార్యమునకు శోభ చేకూర్చగలరు', en: 'We warmly welcome you to share in our joy' },
+      // `siblings` — small line shown at the bottom of the card. Set '' to hide.
+      siblings: {
+        te: 'సోదరులు: శ్రీకాంత్, శివ కుమార్',
+        en: 'Brothers: Srikanth, Shiva Kumar',
+      },
     },
     brideSide: {
       title: { te: 'వధువు తరఫున', en: "Bride's Family" },
-      father: { te: 'శ్రీ రామిని చంద్రశేఖర్', en: 'Mr. Ramini Chandra Shekar' },
-      mother: { te: 'శ్రీమతి రామిని ఉషారాణి', en: 'Mrs. Ramini Usha Rani' },
-      note: { te: 'నూతన దంపతులను మనసారా దీవించండి', en: 'We humbly seek your blessings for the couple' },
+      parents: {
+        te: 'శ్రీ రామిని చంద్రశేఖర్  - ఉషారాణి',
+        en: 'Mr & Mr.s Ramini Chandra Shekar - Usha Rani',
+      },
+      note: { te: 'నూతన వధూవరులను మనసారా ఆశీర్వదించగలరు', en: 'We humbly seek your blessings for the couple' },
+      siblings: {
+        te: 'సోదరి: ధన్య',
+        en: 'Sister: Ramini Dhanya',
+      },
     },
     blessing: {
       te: 'శ్రీ సీతారాముల వలె నూరేళ్ళు ఒక్కటై, పిల్లాపాపలతో, పాడిపంటలతో, చల్లగా ఉండాలని మనస్ఫూర్తిగా దీవిద్దాం.',
@@ -193,15 +209,16 @@ export const content = {
   //  7. PRIMARY VENUE (shown with map)
   // ──────────────────────────────────────────────────────────────────
   venue: {
-    name: { te: 'శ్రీ వేంకటేశ్వర కల్యాణ మండపం', en: 'Sri Venkateswara Kalyana Mandapam' },
+    name: { te: 'శ్రీ జగతి గార్డెన్స్', en: 'Sree Jagati Gardens' },
     address: {
-      te: 'టెంపుల్ రోడ్, హైదరాబాద్, తెలంగాణ 500001',
-      en: 'Temple Road, Hyderabad, Telangana 500001',
+      te: 'కరీంనగర్ రోడ్, జీఎంఆర్ గార్డెన్స్ ఎదురుగా, రామారం, హన్మకొండ, తెలంగాణ 506015',
+      en: 'Karimnagar Road, opp. GMR Gardens, Ramaram, Hanamkonda, Telangana 506015',
     },
     // (address is mostly proper nouns — kept as-is in both)
     // Google Maps embed URL (Share → Embed a map → copy src="...").
-    embedUrl: 'https://www.google.com/maps?q=Hyderabad&output=embed',
-    directionsUrl: 'https://maps.google.com/?q=Hyderabad',
+    embedUrl:
+      'https://www.google.com/maps?q=Sree+Jagati+Gardens,+Main+Rd,+opp.+GMR+Gardens,+Bheemaram,+Hanamkonda,+Telangana+506015&output=embed',
+    directionsUrl: 'https://maps.app.goo.gl/UtWCse2Rxahxf8FbA',
   },
 
   // ──────────────────────────────────────────────────────────────────
@@ -213,7 +230,7 @@ export const content = {
     show: true,
     heading: { te: 'సంప్రదించండి', en: 'Get in Touch' },
     intro: {
-      te: 'మీ రాక గురించి తెలియజేయడానికి మమ్మల్ని పలకరించండి',
+      te: 'ఏ వివరములకైనా మమ్ము సంప్రదించగలరు',
       en: 'For any details, reach out to us — a call or a message away',
     },
     cc: '91',
@@ -242,14 +259,14 @@ export const content = {
   // ──────────────────────────────────────────────────────────────────
   footer: {
     message: {
-      te: 'మీరంతా తప్పక వచ్చి, మా శ్రీనివాస్ – హరి ప్రియలను దీవించి, విందారగించి వెళ్ళాలని కోరుకుంటున్నాం.',
+      te: 'తామంతా సకుటుంబ సమేతముగా విచ్చేసి నూతన వధూవరులను ఆశీర్వదించి, విందారగించి మా ఆతిథ్యము స్వీకరించగలరు.',
       en: 'Do come, bless Srinivas & Hari Priya, and share in our joy — your presence means everything.',
     },
-    hashtag: '#SrinivasWedsHariPriya', // hashtags stay the same in both
+    hashtag: '', // set to '' to hide the hashtag line in the footer
     // The closing sign-off — the groom's parents. Edit the names here.
     fromFamilies: {
-      te: 'ఇట్లు, శుభాభినందనలతో —\nవనమాల వెంకన్న & సంధ్యా రాణి',
-      en: 'With warm regards,\nVanamala Venkanna & Sandhya Rani',
+      te: 'భవదీయులు —\nశ్రీ వనమాల వెంకన్న  - సంధ్యారాణి',
+      en: 'With warm regards,\nMr & Mr.s Vanamala Venkanna - Sandhya Rani',
     },
   },
 
@@ -275,21 +292,23 @@ export const content = {
     },
     hero: {
       ganeshaInvocation: { te: 'ఓం శ్రీ గణేశాయ నమః', en: 'Om Shri Ganeshaya Namaha' },
-      together: { te: 'ఇరువురి కుటుంబాల ఆనందంతో', en: 'Together with their families' },
-      scratchHint: { te: 'మీ ఆశీస్సుల కోసం ఎదురుచూస్తూ...', en: 'Awaiting your blessings…' },
-      cta: { te: 'శుభ ముహూర్తం చూడండి ↓', en: 'OPEN SAVE THE DATE ↓' },
+      together: { te: 'ఇరు కుటుంబముల ఆనందముతో', en: 'Together with their families' },
+      scratchHint: { te: 'తమ ఆశీస్సుల కోసం ఎదురుచూస్తూ...', en: 'Awaiting your blessings…' },
+      // The ↓ arrow is rendered separately (it bobs), so don't put one here.
+      cta: { te: 'సుముహూర్తము చూడండి', en: 'SAVE THE DATE' },
       tapToOpen: { te: 'శుభలేఖ తెరవండి', en: 'TAP TO OPEN' },
-      awaits: { te: '— మీ కోసం ఒక శుభలేఖ —', en: '— An invitation awaits —' },
+      awaits: { te: '— వివాహ మహోత్సవ ఆహ్వాన శుభపత్రిక —', en: '— An invitation awaits —' },
     },
     saveTheDate: {
-      heading: { te: 'శుభ ముహూర్తం', en: 'Save The Date' },
+      heading: { te: 'సుముహూర్తము', en: 'Save The Date' },
       subtitle: {
-        te: 'మా ఇంటి పెళ్ళి ముహూర్తం ఇదిగో',
+        te: 'దైవజ్ఞులచే నిశ్చయించబడిన సుముహూర్తము',
         en: 'Our auspicious day',
       },
-      // No "scratch" wording — the card animates to invite a touch and reveals on its own.
-      revealedLabel: { te: 'మూడుముళ్ళ బంధం', en: 'We Tie The Knot' },
-      celebrate: { te: '🎉 ఈ శుభకార్యానికి మీరంతా తప్పక రావాలి! 🎉', en: '🎉 We can’t wait to celebrate with you! 🎉' },
+      // Hint printed on the gold foil; fades away as soon as scratching starts.
+      scratchHint: { te: 'గీసి చూడండి', en: 'SCRATCH TO REVEAL' },
+      revealedLabel: { te: 'మూడుముళ్ళ పవిత్ర బంధము', en: 'We Tie The Knot' },
+      celebrate: { te: '🎉 ఈ శుభకార్యమునకు తామంతా తప్పక విచ్చేయగలరు! 🎉', en: '🎉 We can’t wait to celebrate with you! 🎉' },
     },
     countdown: {
       heading: { te: 'శుభ ముహూర్తానికి మరికొన్ని రోజులు', en: 'Counting Down To Our Big Day' },
@@ -302,13 +321,15 @@ export const content = {
     coupleHeading: { te: 'వధూవరులు', en: 'The Couple' },
     eventsHeading: { te: 'వేడుకలు', en: 'Wedding Festivities' },
     eventsIntro: {
-      te: 'ప్రతి వేడుకలోనూ మీరు పాల్గొని మమ్మల్ని ఆశీర్వదించాలని కోరుకుంటున్నాం',
+      te: 'ప్రతి శుభకార్యమునందు తాము పాల్గొని మమ్ము ఆశీర్వదించగలరని ఆకాంక్షిస్తున్నాము',
       en: 'We would be honoured by your presence at each celebration',
     },
-    viewMap: { te: '📍 దారి', en: '📍 View Map' },
+    viewMap: { te: '📍 లొకేషన్ చూడండి', en: '📍 View Map' },
     galleryHeading: { te: 'తీపి జ్ఞాపకాలు', en: 'Cherished Moments' },
-    venueHeading: { te: 'వివాహ వేదిక', en: 'Vivaha Vedika' },
-    directions: { te: '📍 దారి', en: '📍 View Map' },
+    venueHeading: { te: 'కళ్యాణ వేదిక', en: 'Vivaha Vedika' },
+    // "Lunch follows the wedding" — printed on the card, shown under the venue
+    lunchNote: { te: 'విందు వివాహానంతరం', en: 'Lunch follows' },
+    directions: { te: '📍 లొకేషన్ చూడండి', en: '📍 View Map' },
   },
 }
 

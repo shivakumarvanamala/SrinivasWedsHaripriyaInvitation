@@ -9,13 +9,16 @@ export default function ScratchCard({
   width = 360,
   height = 220,
   onComplete,
+  hint, // optional "scratch to reveal" text shown on the foil
   children, // the hidden content revealed underneath
 }) {
   const canvasRef = useRef(null)
   const containerRef = useRef(null)
   const drawing = useRef(false)
   const lastPos = useRef(null) // previous scratch point, for smooth strokes
+  const moved = useRef(false) // did this press turn into a drag? (tap vs scratch)
   const [revealed, setRevealed] = useState(false)
+  const [scratched, setScratched] = useState(false) // has the guest started?
   const completedRef = useRef(false)
 
   // Paint the gold "foil" cover. No instructions/text — the card wiggles to
@@ -100,7 +103,14 @@ export default function ScratchCard({
     onComplete && onComplete()
   }
 
-  const BRUSH = 30 // brush radius (CSS px)
+  // Brush radius (CSS px). A tap punches a slightly smaller hole than a drag
+  // stroke, so a couple of taps tease the text without giving it all away.
+  const BRUSH = 26
+  const TAP_BRUSH = 20
+  // Fraction of foil that must be scratched off before the rest falls away.
+  // Low enough that a short scratch finishes it, but above what a tap or two
+  // clears (~1-2%) so taps still only tease the text underneath.
+  const REVEAL_AT = 0.1
 
   // Erase a smooth, continuous stroke from the previous point to this one so
   // fast drags don't leave gaps (the main cause of "sometimes it doesn't work").
@@ -130,8 +140,8 @@ export default function ScratchCard({
     lastPos.current = { x, y }
   }
 
-  const checkCompletion = () => {
-    if (completedRef.current) return
+  // How much of the foil has been scratched away, 0–1.
+  const clearedFraction = () => {
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
     const img = ctx.getImageData(0, 0, canvas.width, canvas.height).data
@@ -142,18 +152,25 @@ export default function ScratchCard({
       total++
       if (img[i] === 0) cleared++
     }
-    // Reveal once a modest, consistent area is cleared (~15%).
-    if (cleared / total > 0.15) reveal()
+    return total ? cleared / total : 0
+  }
+
+  const checkCompletion = () => {
+    if (completedRef.current) return
+    if (clearedFraction() > REVEAL_AT) reveal()
   }
 
   const start = (e) => {
     drawing.current = true
+    moved.current = false
     lastPos.current = null // begin a fresh stroke
+    setScratched(true) // hide the hint the moment they touch the foil
     scratch(e)
   }
   const move = (e) => {
     if (drawing.current) {
       if (e.cancelable) e.preventDefault()
+      moved.current = true
       scratch(e)
       checkCompletion() // check WHILE scratching, not just on release
     }
@@ -164,8 +181,28 @@ export default function ScratchCard({
     lastPos.current = null
     checkCompletion()
   }
-  // A simple tap/click (no drag) also reveals everything — guaranteed UX.
-  const onClick = () => reveal()
+
+  // A plain tap (press + release without dragging) rubs a small patch of foil
+  // off at that spot rather than revealing everything — so a tap or two hints
+  // at the text underneath and invites more scratching.
+  const onClick = (e) => {
+    if (completedRef.current || moved.current) return
+    const canvas = canvasRef.current
+    const rect = canvas.getBoundingClientRect()
+    const { x, y } = getPos(e, rect)
+    const ctx = canvas.getContext('2d')
+    ctx.globalCompositeOperation = 'destination-out'
+    // soft-edged dab so taps look rubbed, not punched
+    const g = ctx.createRadialGradient(x, y, 0, x, y, TAP_BRUSH)
+    g.addColorStop(0, 'rgba(0,0,0,1)')
+    g.addColorStop(0.7, 'rgba(0,0,0,1)')
+    g.addColorStop(1, 'rgba(0,0,0,0)')
+    ctx.fillStyle = g
+    ctx.beginPath()
+    ctx.arc(x, y, TAP_BRUSH, 0, Math.PI * 2)
+    ctx.fill()
+    checkCompletion()
+  }
 
   return (
     <div
@@ -179,7 +216,7 @@ export default function ScratchCard({
       {/* scratch surface */}
       <canvas
         ref={canvasRef}
-        className={`absolute inset-0 h-full w-full ${revealed ? 'pointer-events-none' : 'cursor-pointer'}`}
+        className={`absolute inset-0 h-full w-full ${revealed ? 'pointer-events-none' : 'cursor-grab active:cursor-grabbing'}`}
         style={{ touchAction: 'none' }}
         onMouseDown={start}
         onMouseMove={move}
@@ -190,6 +227,20 @@ export default function ScratchCard({
         onTouchEnd={end}
         onClick={onClick}
       />
+
+      {/* "scratch to reveal" hint — sits ON TOP of the foil but ignores pointer
+          events so it never blocks scratching. Disappears on first touch. */}
+      {hint && !scratched && !revealed && (
+        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-1">
+          <span className="font-sans text-sm font-semibold tracking-wide text-maroon-deep/80">
+            {hint}
+          </span>
+          {/* finger dragging side to side, miming the scratch gesture */}
+          <span className="scratch-finger text-xl" aria-hidden="true">
+            👆
+          </span>
+        </div>
+      )}
     </div>
   )
 }

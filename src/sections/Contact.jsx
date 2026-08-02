@@ -44,14 +44,14 @@ function PersonCard({ person, cc, delay }) {
           target="_blank"
           rel="noreferrer"
           aria-label={`WhatsApp ${t(person.name)}`}
-          className="flex h-9 w-9 items-center justify-center rounded-full bg-[#25D366] text-plum-deep shadow-glow transition hover:scale-110"
+          className="btn-gold flex h-9 w-9 items-center justify-center rounded-full bg-[#25D366] text-plum-deep"
         >
           <WhatsAppIcon className="h-5 w-5" />
         </a>
         <a
           href={tel}
           aria-label={`Call ${t(person.name)}`}
-          className="flex h-9 w-9 items-center justify-center rounded-full bg-gold-gradient text-plum-deep shadow-glow transition hover:scale-110"
+          className="btn-gold flex h-9 w-9 items-center justify-center rounded-full bg-gold-gradient text-plum-deep"
         >
           <PhoneIcon className="h-4 w-4" />
         </a>

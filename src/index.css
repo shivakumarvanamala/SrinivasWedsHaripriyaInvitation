@@ -82,6 +82,41 @@
     backdrop-filter: blur(4px);
   }
 
+  /* ── Clickable affordance for every gold button/link on the site ──
+     Makes controls read as controls: hand cursor, a lift + brighter glow on
+     hover, a real press-down on click, and a visible focus ring for keyboard
+     users. Applied alongside the existing bg-gold-gradient classes. */
+  .btn-gold {
+    @apply cursor-pointer select-none;
+    transition: transform 0.2s, box-shadow 0.2s, filter 0.2s;
+    box-shadow: 0 6px 18px -6px rgba(0, 0, 0, 0.6), 0 0 18px -4px rgba(229, 193, 108, 0.5);
+  }
+  /* For buttons whose transform is driven by JS (Framer Motion), a CSS
+     transform transition fights the animation and damps it to a few pixels —
+     so animate only the non-transform properties here. */
+  .btn-gold.btn-animated {
+    transition: box-shadow 0.2s, filter 0.2s;
+  }
+  .btn-gold:hover {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 12px 26px -8px rgba(0, 0, 0, 0.65), 0 0 30px -2px rgba(229, 193, 108, 0.85);
+    filter: brightness(1.06);
+  }
+  /* pressed state — the button physically depresses */
+  .btn-gold:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 3px 10px -6px rgba(0, 0, 0, 0.7), 0 0 12px -4px rgba(229, 193, 108, 0.45);
+  }
+  .btn-gold:focus-visible {
+    outline: 2px solid #F3D697;
+    outline-offset: 3px;
+  }
+
+  /* Finger miming the scratch gesture on the foil */
+  .scratch-finger {
+    animation: scratchSwipe 1.6s ease-in-out infinite;
+  }
+
   /* Jali (lattice) pattern overlay — faint gold geometric screen */
   .jali {
     background-image:
@@ -89,6 +124,16 @@
       linear-gradient(-45deg, rgba(201, 162, 75, 0.05) 25%, transparent 25%, transparent 75%, rgba(201, 162, 75, 0.05) 75%);
     background-size: 46px 46px;
     background-position: 0 0, 23px 23px;
+  }
+}
+
+@keyframes scratchSwipe {
+  0%,
+  100% {
+    transform: translateX(-26px) rotate(-12deg);
+  }
+  50% {
+    transform: translateX(26px) rotate(12deg);
   }
 }
 
