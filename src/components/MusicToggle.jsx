@@ -4,10 +4,23 @@ import { useEffect, useRef, useState } from 'react'
 // Music begins ONLY when `start` becomes true — i.e. the moment the temple
 // doors begin opening (a real user gesture, so autoplay is permitted).
 // The button then mutes / unmutes. Renders nothing if no src is configured.
-export default function MusicToggle({ src, label = 'Music', start = false }) {
+//
+// `forceMute` lets the page silence the song from outside — used when the guest
+// starts the wedding live stream, so the two audio sources never play over each
+// other. The guest can still un-mute manually afterwards.
+export default function MusicToggle({ src, label = 'Music', start = false, forceMute = false }) {
   const audioRef = useRef(null)
   const [enabled, setEnabled] = useState(true) // user's on/off intent (default ON)
   const [playing, setPlaying] = useState(false)
+
+  // Pause when something else on the page needs the audio (the live stream).
+  useEffect(() => {
+    if (!forceMute) return
+    const audio = audioRef.current
+    if (audio) audio.pause()
+    setPlaying(false)
+    setEnabled(false)
+  }, [forceMute])
 
   // Configure the audio element once.
   useEffect(() => {

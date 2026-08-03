@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Ganesha, Divider, MandalaBg, CornerFlourish, Thoranam } from '../components/Motifs'
 import { useLang } from '../i18n'
@@ -9,6 +9,12 @@ import { useLang } from '../i18n'
 export default function Hero({ content, opened, setOpened }) {
   const { t } = useLang()
   const { couple, invocation, ui } = content
+
+  // If the page was deep-linked (…/#live) the invitation starts already opened.
+  // In that case the reveal must NOT run its "pin to top and lock scrolling"
+  // routine, or it would drag the guest away from the section they linked to.
+  // Captured in a ref on first render so it doesn't change mid-session.
+  const skipReveal = useRef(opened)
 
   // Gate the entrance: until the doors finish opening, the page must NOT
   // scroll. The first scroll/tap triggers the reveal; we lock the body,
@@ -35,6 +41,7 @@ export default function Hero({ content, opened, setOpened }) {
   // then unlock after the reveal so the next scroll moves to the content.
   useEffect(() => {
     if (!opened) return
+    if (skipReveal.current) return // deep-linked — leave the scroll position alone
     window.scrollTo(0, 0)
     document.body.style.overflow = 'hidden'
     const id = setTimeout(() => {
@@ -138,7 +145,9 @@ export default function Hero({ content, opened, setOpened }) {
         className="relative z-10 mx-auto max-w-3xl px-6 text-center"
       >
         {/* Lord Ganesha + invocation */}
-        <Ganesha className="mx-auto mt-6 h-20 w-20 text-gold md:h-24 md:w-24" />
+        {/* glow matches the footer's Ganesha, so the invocation breathes at
+            both ends of the page */}
+        <Ganesha className="mx-auto mt-6 h-20 w-20 animate-glow text-gold md:h-24 md:w-24" />
         <p className="mt-2 font-sans text-lg text-gold-light md:text-xl">{t(ui.hero.ganeshaInvocation)}</p>
 
         <Divider className="my-7 text-gold" />

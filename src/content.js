@@ -20,48 +20,104 @@
 
 export const content = {
   // ──────────────────────────────────────────────────────────────────
+  //  0. REMOTE CONTROL  (optional, but set this up BEFORE the wedding)
+  //
+  //  Paste a GitHub Gist "Raw" url here and the live site reads it every minute.
+  //  Anything you put in that file overrides the settings below — so you can
+  //  change the site from your PHONE, with no code, no commit, no deploy.
+  //
+  //  SET UP (once, well before the day — takes 2 minutes):
+  //    1. gist.github.com → new PUBLIC gist, filename:  wedding.json
+  //    2. Content:  {}
+  //    3. "Create public gist" → click Raw → copy that url → paste it below.
+  //    4. Deploy the site once.
+  //
+  //  THEN, ANY TIME: open the gist on your phone, Edit, change the JSON, Save.
+  //  Guests see it within a minute — even people who already have the page open.
+  //
+  //  ── WHAT YOU'LL ACTUALLY USE ──
+  //
+  //  Turn the live stream ON — just paste the WHOLE YouTube link, as-is:
+  //      { "live": { "videoId": "https://www.youtube.com/live/abc123XYZ" } }
+  //      { "live": { "videoId": "https://youtu.be/abc123XYZ" } }
+  //      { "live": { "videoId": "abc123XYZ" } }        ← a bare id also works
+  //  (Any YouTube url shape is accepted — watch / live / youtu.be / embed /
+  //   shorts, with or without extra ?t= or &list= params. Nothing to extract.)
+  //
+  //  Turn it OFF again:
+  //      { "live": { "videoId": "" } }
+  //
+  //  Hide the live section completely:
+  //      { "live": { "show": false } }
+  //
+  //  Force the red LIVE badge on / off (normally automatic from the clock):
+  //      { "live": { "isLive": true } }
+  //
+  //  Change a venue or time at the last minute:
+  //      { "venue": { "name": { "te": "కొత్త వేదిక", en: "New Venue" } } }
+  //
+  //  Several at once — anything in this file can be overridden:
+  //      { "live":   { "videoId": "abc123XYZ", "isLive": true },
+  //        "contact":{ "show": false } }
+  //
+  //  RULES
+  //   • Only include the keys you want to CHANGE. Everything else keeps the
+  //     values below.
+  //   • Objects merge (so `{"live":{"videoId":"x"}}` keeps the rest of `live`).
+  //     Lists like `events` are replaced whole.
+  //   • If the gist is unreachable or the JSON is broken it is IGNORED and the
+  //     site falls back to the values below — it can never break the page.
+  //   • Leave '' to disable remote control entirely.
+  // ──────────────────────────────────────────────────────────────────
+  //  ⚠️ NOTE the url below has NO revision hash in it. GitHub's "Raw" button
+  //     gives you a url like  .../raw/281d8d27…/wedding.json  — that long hash
+  //     pins it to ONE revision, so later edits would never be picked up.
+  //     Deleting the hash (as done here) always serves the LATEST version.
+  configUrl:
+    'https://gist.githubusercontent.com/shivakumarvanamala/d1ecb994e931ce2813a0cfce6067482e/raw/wedding.json',
+
+  // ──────────────────────────────────────────────────────────────────
   //  1. THE COUPLE
   // ──────────────────────────────────────────────────────────────────
   couple: {
     groom: {
       // `name` = short name, used only in the big hero "X weds Y" line
       name: { te: 'శ్రీనివాస్', en: 'Srinivas' },
+      // `role` = the small gold caption on the arch in the Couple section
+      // (వరుడు / Groom). Set '' to hide it.
+      role: { te: 'వరుడు', en: 'Groom' },
       // `fullName` = shown as the heading in the Couple section (with surname)
       // `honorific` = the చి. / చి.ల.సౌ. prefix — rendered at HALF the name's
       //               font size, just before the name. Set '' to hide.
       honorific: { te: 'చి.', en: '' },
       fullName: { te: 'వనమాల శ్రీనివాస్', en: 'Vanamala Srinivas' },
-      // `monogram` = the letter shown inside the arch when no photo is added
-      monogram: { te: 'శ్రీ', en: 'S' },
       // `relation` (small line) + `parents` (the two names, kept on one line)
       // Telugu is shown AFTER the parents' names ("<parents> ల ప్రథమ పుత్రుడు");
       // English is shown BEFORE them ("Elder son of / <parents>").
       relation: { te: 'ల ప్రథమ పుత్రుడు', en: 'Elder son of' },
       parents: {
         te: 'శ్రీ వనమాల వెంకన్న  - సంధ్యారాణి',
-        en: 'Mr & Mr.s Vanamala Venkanna - Sandhya Rani',
+        en: 'Mr & Mrs. Vanamala Venkanna - Sandhya Rani',
       },
       about: {
         te: 'వంశ గౌరవాన్ని నిలబెడుతూ, పెద్దల దీవెనలతో జీవితంలో ముందడుగు వేస్తున్న మా ముద్దుల చిరంజీవి.',
         en: 'The beloved elder son of the Vanamala family, stepping forward with the blessings of his elders.',
       },
-      photo: '/images/groom.jpg', // put the file in /public/images/
     },
     bride: {
       name: { te: 'హరి ప్రియ', en: 'Hari Priya' },
+      role: { te: 'వధువు', en: 'Bride' },
       honorific: { te: 'చి.ల.సౌ.', en: '' },
       fullName: { te: 'రామిని హరి ప్రియ', en: 'Ramini Hari Priya' },
-      monogram: { te: 'హ', en: 'H' },
       relation: { te: 'ల ప్రథమ పుత్రిక', en: 'Elder daughter of' },
       parents: {
         te: 'శ్రీ రామిని చంద్రశేఖర్  - ఉషారాణి',
-        en: 'Mr & Mr.s Ramini Chandra Shekar - Usha Rani',
+        en: 'Mr & Mrs. Ramini Chandra Shekar - Usha Rani',
       },
       about: {
         te: 'ఇంటికి వెలుగై, అందరి మన్ననలు అందుకుంటున్న మా గారాల చిరంజీవి సౌభాగ్యవతి.',
         en: 'The cherished elder daughter of the Ramini family, the light of her home.',
       },
-      photo: '/images/bride.jpg',
     },
     weds: { te: 'వివాహం', en: 'weds' },
   },
@@ -79,11 +135,14 @@ export const content = {
   },
 
   // ──────────────────────────────────────────────────────────────────
-  //  3. WEDDING DATE  (for the countdown timer)
-  //     `weddingDate` is data — format 'YYYY-MM-DDTHH:MM:SS' (24-hour).
-  //     The label below it is shown to guests, so it is bilingual.
+  //  3. WEDDING DATE  (for the countdown timer AND the live-stream window)
+  //     `weddingDate` is data — 'YYYY-MM-DDTHH:MM:SS+05:30'.
+  //     KEEP THE +05:30 (India Standard Time). Without it the browser reads the
+  //     time as the VIEWER's local time, so relatives watching from the US or UK
+  //     would see the countdown end — and the LIVE badge appear — hours early or
+  //     late. With it, every guest worldwide sees the same instant.
   // ──────────────────────────────────────────────────────────────────
-  weddingDate: '2026-08-23T11:23:00',
+  weddingDate: '2026-08-23T11:23:00+05:30',
   weddingDateLabel: {
     te: 'తేది. 23-08-2026 ఆదివారం',
     en: 'Sunday, 23rd August 2026',
@@ -106,7 +165,7 @@ export const content = {
   events: [
     {
       // Upanayanam — the day BEFORE the wedding, at home
-      icon: 'haldi',
+      icon: 'upanayanam',
       name: { te: 'ఉపనయనము', en: 'Upanayanam' },
       tagline: { te: 'బ్రహ్మోపదేశ శుభ సంస్కారము', en: 'The sacred thread ceremony' },
       date: { te: 'తేది. 22-08-2026 శనివారం', en: 'Saturday, 22nd August 2026' },
@@ -116,7 +175,11 @@ export const content = {
       embedUrl: 'https://www.google.com/maps?q=17.428587,79.949118&z=15&output=embed',
     },
     {
-      // Wedding — main day, at the hall (TODO: replace venue name + map link)
+      // Wedding — main day, at the hall.
+      // `highlight: true` marks this as THE main event: the card gets a brighter
+      // gold frame + glow, a larger medallion, a taller map, larger type and the
+      // lunch note. Only set it on ONE event.
+      highlight: true,
       icon: 'wedding',
       name: { te: 'సుముహూర్తము', en: 'Wedding' },
       tagline: { te: 'ఏడడుగుల మూడుముళ్ళ పవిత్ర బంధము', en: 'The sacred seven vows' },
@@ -222,6 +285,69 @@ export const content = {
   },
 
   // ──────────────────────────────────────────────────────────────────
+  //  7a. WATCH LIVE — the YouTube live stream of the muhurtham.
+  //
+  //  ▸ `videoId` is the ONLY thing you must set — and you can paste the WHOLE
+  //    YouTube link exactly as you copied it. No need to pick the id out.
+  //        https://www.youtube.com/live/dQw4w9WgXcQ        ✓
+  //        https://youtu.be/dQw4w9WgXcQ?t=42               ✓
+  //        https://www.youtube.com/watch?v=dQw4w9WgXcQ     ✓
+  //        https://m.youtube.com/watch?v=dQw4w9WgXcQ&t=30s ✓
+  //        dQw4w9WgXcQ                                     ✓ (bare id is fine)
+  //    Anything unrecognisable is treated as "no stream", so a bad paste leaves
+  //    the elegant "streaming soon" panel rather than a broken player.
+  //
+  //  ▸ Until you have the link, leave videoId: '' — the section shows an elegant
+  //    "streaming soon" panel with the date/time. It never looks broken, so it
+  //    is safe to publish the site before the stream exists.
+  //
+  //  ▸ YOU DO NOT NEED TO TOUCH ANYTHING ON THE WEDDING DAY.
+  //    The player AND the red LIVE badge both switch themselves on and off from
+  //    the clock, using `weddingDate` above together with the live window below.
+  //    Just press "Go Live" on YouTube.
+  //
+  //  ▸ TIP: schedule the stream on YouTube DAYS EARLY. The video id exists the
+  //    moment you create the scheduled stream and does NOT change when you
+  //    actually go live — so you can paste the link here calmly in advance. It
+  //    stays hidden behind the "streaming soon" panel until the window opens.
+  //
+  //  ▸ `isLive` overrides the clock — this is your escape hatch if the muhurtham
+  //    runs late or the window is wrong:
+  //        null  → automatic, decided by the clock  (leave it here)
+  //        true  → show the player + LIVE badge NOW, whatever the time
+  //        false → keep it on the "streaming soon" panel, whatever the time
+  //
+  //  ▸ Set `show: false` to hide the whole section.
+  // ──────────────────────────────────────────────────────────────────
+  live: {
+    show: true,
+    videoId: '', // ← paste the whole YouTube link (or just the id) here
+    isLive: null, // null = automatic (see above). true/false to override.
+    // The LIVE WINDOW. Inside it the player is offered and the badge glows red;
+    // outside it guests see the "streaming soon" panel instead. This stops
+    // someone visiting a week early from pressing play and landing on YouTube's
+    // bare "waiting for stream" screen.
+    liveFromMinutesBefore: 90, // opens 1 hr 30 min before the muhurtham
+    liveUntilMinutesAfter: 300, // closes 5 hours after
+    // Fallback link used before a videoId exists (your channel page). Optional.
+    channelUrl: '',
+    heading: { te: 'వివాహ మహోత్సవం - ప్రత్యక్ష ప్రసారం', en: 'Watch The Wedding Live' },
+    intro: {
+      te: 'దగ్గరైనా, దూరమైనా... మా వివాహ శుభ ముహూర్తాన్ని వీక్షించి, మమ్మల్ని ఆశీర్వదించండి.',
+      en: 'Near or far, bless us with your presence as our auspicious hour unfolds.',
+    },
+    liveBadge: { te: 'ప్రత్యక్ష ప్రసారం', en: 'Live Now' },
+    soonBadge: { te: 'త్వరలో ప్రత్యక్ష ప్రసారం', en: 'Streaming Soon' },
+    watchOnYouTube: { te: 'యూట్యూబ్‌లో చూడండి', en: 'Watch on YouTube' },
+    // Short muhurat line for the player panel (the full one is too long here)
+    muhuratShort: { te: 'ఉ.గం. 11-23 ని.', en: '11:23 AM' },
+    note: {
+      te: 'ప్రసారము ముహూర్తమునకు కొద్ది సమయము ముందు ప్రారంభమవుతుంది.',
+      en: 'The stream begins shortly before the muhurtham.',
+    },
+  },
+
+  // ──────────────────────────────────────────────────────────────────
   //  7b. CONTACT — people guests can call / WhatsApp.
   //     `phone` is the plain 10-digit number (also used for WhatsApp).
   //     `cc` is the country code (91 = India) used for the WhatsApp link.
@@ -265,8 +391,8 @@ export const content = {
     hashtag: '', // set to '' to hide the hashtag line in the footer
     // The closing sign-off — the groom's parents. Edit the names here.
     fromFamilies: {
-      te: 'భవదీయులు —\nశ్రీ వనమాల వెంకన్న  - సంధ్యారాణి',
-      en: 'With warm regards,\nMr & Mr.s Vanamala Venkanna - Sandhya Rani',
+      te: 'భవదీయులు -\nశ్రీ వనమాల వెంకన్న  - సంధ్యారాణి',
+      en: 'With warm regards,\nMr & Mrs. Vanamala Venkanna - Sandhya Rani',
     },
   },
 
@@ -288,12 +414,13 @@ export const content = {
       events: { te: 'వేడుకలు', en: 'Events' },
       saptapadi: { te: 'సప్తపది', en: 'Saptapadi' },
       venue: { te: 'వేదిక', en: 'Venue' },
+      live: { te: 'ప్రత్యక్ష ప్రసారం', en: 'Watch Live' },
       contact: { te: 'సంప్రదించండి', en: 'Contact' },
     },
     hero: {
       ganeshaInvocation: { te: 'ఓం శ్రీ గణేశాయ నమః', en: 'Om Shri Ganeshaya Namaha' },
       together: { te: 'ఇరు కుటుంబముల ఆనందముతో', en: 'Together with their families' },
-      scratchHint: { te: 'తమ ఆశీస్సుల కోసం ఎదురుచూస్తూ...', en: 'Awaiting your blessings…' },
+      scratchHint: { te: 'మీ ఆశీస్సుల కోసం ఎదురుచూస్తూ...', en: 'Awaiting your blessings…' },
       // The ↓ arrow is rendered separately (it bobs), so don't put one here.
       cta: { te: 'సుముహూర్తము చూడండి', en: 'SAVE THE DATE' },
       tapToOpen: { te: 'శుభలేఖ తెరవండి', en: 'TAP TO OPEN' },

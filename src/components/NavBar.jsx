@@ -1,11 +1,20 @@
 import { useEffect, useState } from 'react'
-import content from '../content'
 import { useLang } from '../i18n'
 
-const linkIds = ['savethedate', 'couple', 'families', 'events', 'saptapadi', 'venue', 'contact']
+// 'saptapadi' and 'venue' are omitted while those sections are disabled in
+// App.jsx — the links would otherwise scroll to elements that no longer exist.
+// Re-add them here (saptapadi between 'events' and 'live'; venue after it)
+// when those sections are re-enabled.
+const linkIds = ['savethedate', 'couple', 'families', 'events', 'live', 'contact']
+
+// Sections that can be switched off from content.js (or remotely via the Gist).
+// Their nav link must disappear with them, otherwise it scrolls to nothing.
+const togglable = { families: 'families', live: 'live', contact: 'contact' }
 
 // Sticky nav that fades in after the user scrolls past the hero.
-export default function NavBar() {
+// `content` is passed in (rather than imported) so it carries any remote
+// overrides — importing it directly would pin the nav to the baked-in values.
+export default function NavBar({ content }) {
   const { t } = useLang()
   const ui = content.ui
   const [show, setShow] = useState(false)
@@ -17,7 +26,12 @@ export default function NavBar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const links = linkIds.map((id) => ({ id, label: t(ui.nav[id]) }))
+  const links = linkIds
+    .filter((id) => {
+      const key = togglable[id]
+      return key ? content[key]?.show !== false : true
+    })
+    .map((id) => ({ id, label: t(ui.nav[id]) }))
 
   return (
     <nav

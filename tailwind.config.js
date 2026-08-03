@@ -63,6 +63,12 @@ export default {
           '0%, 100%': { opacity: '0.2', transform: 'scale(0.7)' },
           '50%': { opacity: '1', transform: 'scale(1.2)' },
         },
+        // Broadcast arcs rippling outward from the diya (live-stream icon)
+        signal: {
+          '0%': { opacity: '0.15', transform: 'scale(0.9)' },
+          '45%': { opacity: '1' },
+          '100%': { opacity: '0.15', transform: 'scale(1.06)' },
+        },
       },
       animation: {
         shimmer: 'shimmer 5s ease infinite',
@@ -70,6 +76,7 @@ export default {
         spinSlow: 'spinSlow 50s linear infinite',
         floatSoft: 'floatSoft 5s ease-in-out infinite',
         sparkle: 'sparkle 2.4s ease-in-out infinite',
+        signal: 'signal 1.9s ease-in-out infinite',
       },
     },
   },

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Divider, Kalash, GroomIcon, BrideIcon } from '../components/Motifs'
+import { Divider, TwoFamilies, BoundRings, GroomIcon, BrideIcon } from '../components/Motifs'
 import { useLang } from '../i18n'
 
 function FamilyCard({ side, icon, delay }) {
@@ -39,7 +39,8 @@ export default function Families({ content }) {
   return (
     <section id="families" className="section-pad relative bg-plum-deep-radial jali">
       <div className="mx-auto max-w-5xl text-center">
-        <Kalash className="mx-auto h-16 w-16 text-gold" />
+        {/* two family groups joined at the centre, under a garland */}
+        <TwoFamilies className="mx-auto h-20 w-20 text-gold" />
         <h2 className="mt-3 font-heading text-3xl leading-normal text-foil md:text-5xl">{t(fam.heading)}</h2>
         <p className="mx-auto mt-3 max-w-xl font-display text-lg italic text-cream/70">{t(fam.intro)}</p>
 
@@ -54,9 +55,10 @@ export default function Families({ content }) {
               whileInView={{ scale: 1, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.25 }}
-              className="flex h-16 w-16 items-center justify-center rounded-full border border-gold/60 bg-gold-gradient font-deco text-3xl text-plum-deep shadow-glow"
+              className="flex h-16 w-16 items-center justify-center rounded-full border border-gold/60 bg-gold-gradient text-plum-deep shadow-glow"
             >
-              ❀
+              {/* two interlocking rings — the two families joined */}
+              <BoundRings className="h-9 w-9" />
             </motion.span>
           </div>
 

@@ -108,9 +108,9 @@ export default function ScratchCard({
   const BRUSH = 26
   const TAP_BRUSH = 20
   // Fraction of foil that must be scratched off before the rest falls away.
-  // Low enough that a short scratch finishes it, but above what a tap or two
-  // clears (~1-2%) so taps still only tease the text underneath.
-  const REVEAL_AT = 0.1
+  // 20% takes a deliberate scratch or two — well above what a tap clears (~1-2%),
+  // so taps only tease the text underneath.
+  const REVEAL_AT = 0.2
 
   // Erase a smooth, continuous stroke from the previous point to this one so
   // fast drags don't leave gaps (the main cause of "sometimes it doesn't work").
@@ -235,9 +235,12 @@ export default function ScratchCard({
           <span className="font-sans text-sm font-semibold tracking-wide text-maroon-deep/80">
             {hint}
           </span>
-          {/* finger dragging side to side, miming the scratch gesture */}
+          {/* finger dragging side to side, miming the scratch gesture.
+              Uses the medium-dark skin-tone modifier (U+1F3FE) — the default 👆
+              renders in a yellow-tan that is nearly the same hue as the gold
+              foil, so it disappeared against it. */}
           <span className="scratch-finger text-xl" aria-hidden="true">
-            👆
+            👆🏾
           </span>
         </div>
       )}

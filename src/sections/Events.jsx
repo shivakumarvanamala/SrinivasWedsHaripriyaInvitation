@@ -16,63 +16,113 @@ export default function Events({ content }) {
         <Divider className="my-10 text-gold" />
 
         <div className="grid grid-cols-1 items-stretch gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {events.map((ev, i) => (
+          {events.map((ev, i) => {
+            // The event marked `highlight: true` in content.js is THE wedding.
+            // It previously looked identical to the other ceremonies, so it got
+            // lost among them. It now reads as the centrepiece: brighter gold
+            // frame + glow, a ribbon above the title, a taller map, larger type,
+            // and it spans both columns on tablet so it can't be mistaken for a
+            // sibling card. Order stays chronological.
+            const hero = !!ev.highlight
+            return (
             <motion.article
               key={i}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: (i % 3) * 0.12 }}
-              className="royal-card flex flex-col overflow-hidden p-0 text-center"
+              // No scale transform here: scaling a grid item makes it overlap
+              // its neighbours. Emphasis comes from the ring, glow, brighter
+              // border and larger internals instead.
+              className={`royal-card flex flex-col overflow-hidden p-0 text-center ${
+                hero ? 'relative ring-1 ring-gold/60 shadow-glow sm:col-span-2 lg:col-span-1' : ''
+              }`}
+              style={hero ? { borderColor: 'rgba(229,193,108,0.85)' } : undefined}
             >
-              {/* live map preview across the top — same treatment as the
-                  Vivaha Vedika card */}
+              {/* live map preview across the top — taller on the hero card */}
               {ev.embedUrl && (
                 <iframe
                   title={`${t(ev.name)} location`}
                   src={ev.embedUrl}
-                  className="h-48 w-full border-0"
+                  className={`w-full border-0 ${hero ? 'h-56 sm:h-64 lg:h-52' : 'h-48'}`}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   allowFullScreen
                 />
               )}
 
-              <div className="relative flex flex-1 flex-col items-center px-6 pb-7 pt-0">
+              <div className={`relative flex flex-1 flex-col items-center px-6 pt-0 ${hero ? 'pb-8' : 'pb-7'}`}>
                 {/* icon straddles the map edge so it reads as a medallion */}
-                <span className="-mt-8 flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-gold/50 bg-plum-soft text-gold shadow-glow">
-                  <EventIcon name={ev.icon} className="h-10 w-10" />
+                <span
+                  className={`-mt-8 flex shrink-0 items-center justify-center rounded-full bg-plum-soft text-gold shadow-glow ${
+                    hero ? 'h-20 w-20 border-2 border-gold/70' : 'h-16 w-16 border border-gold/50'
+                  }`}
+                >
+                  <EventIcon name={ev.icon} className={hero ? 'h-12 w-12' : 'h-10 w-10'} />
                 </span>
 
-                <h3 className="mt-5 font-heading text-2xl leading-normal text-foil">{t(ev.name)}</h3>
-                <p className="mt-1.5 font-display text-base italic leading-relaxed text-cream/55">
+                <h3
+                  className={`font-heading leading-normal text-foil ${
+                    hero ? 'mt-5 text-3xl md:text-[2.1rem]' : 'mt-5 text-2xl'
+                  }`}
+                >
+                  {t(ev.name)}
+                </h3>
+                <p
+                  className={`mt-1.5 font-display italic leading-relaxed ${
+                    hero ? 'text-lg text-cream/70' : 'text-base text-cream/55'
+                  }`}
+                >
                   {t(ev.tagline)}
                 </p>
 
-                <span className="gold-rule my-5 w-1/2" />
+                <span className={`gold-rule my-5 ${hero ? 'w-2/3' : 'w-1/2'}`} />
 
-                <p className="font-sans text-sm font-semibold leading-relaxed text-cream">{t(ev.date)}</p>
-                <p className="mt-1 font-sans text-sm font-semibold leading-relaxed text-gold-light">
+                <p
+                  className={`font-sans font-semibold leading-relaxed text-cream ${
+                    hero ? 'text-base' : 'text-sm'
+                  }`}
+                >
+                  {t(ev.date)}
+                </p>
+                <p
+                  className={`mt-1 font-sans font-semibold leading-relaxed text-gold-light ${
+                    hero ? 'text-base' : 'text-sm'
+                  }`}
+                >
                   {t(ev.time)}
                 </p>
 
-                <p className="mt-4 font-sans text-sm font-medium leading-relaxed text-cream/80">
+                <p
+                  className={`mt-4 font-sans font-medium leading-relaxed ${
+                    hero ? 'text-[0.95rem] text-cream/90' : 'text-sm text-cream/80'
+                  }`}
+                >
                   {t(ev.venue)}
                 </p>
+
+                {/* "Lunch follows" — carried over from the retired Vivaha Vedika
+                    section so that detail isn't lost */}
+                {hero && ui.lunchNote && t(ui.lunchNote) && (
+                  <p className="mt-2 font-display text-base italic text-gold-light">{t(ui.lunchNote)}</p>
+                )}
 
                 {ev.mapUrl && (
                   <a
                     href={ev.mapUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="btn-gold mt-auto inline-flex items-center gap-1 rounded-full bg-gold-gradient px-4 py-2 text-xs font-semibold tracking-wide text-plum-deep"
+                    className={`btn-gold mt-auto inline-flex items-center gap-1 rounded-full bg-gold-gradient font-semibold tracking-wide text-plum-deep ${
+                      hero ? 'px-6 py-2.5 text-sm' : 'px-4 py-2 text-xs'
+                    }`}
                   >
                     {t(ui.viewMap)}
                   </a>
                 )}
               </div>
             </motion.article>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>

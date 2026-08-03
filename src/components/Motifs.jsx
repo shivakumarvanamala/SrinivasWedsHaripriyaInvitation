@@ -357,6 +357,38 @@ export function HaldiBowl({ className = '' }) {
   )
 }
 
+// ── YAGNOPAVEETHAM — the sacred thread ceremony (Upanayanam).
+//    Read as a torso with the janivara worn diagonally across it (left shoulder
+//    to right hip), which is the instantly recognisable image of the rite.
+//    Simple, symmetrical shapes so it stays legible at 40–48px.
+export function Yagnopaveetham({ className = '' }) {
+  return (
+    <svg viewBox="0 0 80 80" className={className} fill="none" aria-hidden="true">
+      <g stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+        {/* head */}
+        <circle cx="40" cy="17" r="9" fill="currentColor" opacity="0.14" />
+        <circle cx="40" cy="17" r="9" />
+        {/* tuft (shikha) — a small traditional detail */}
+        <path d="M40 8c1-4 4-5 4-5-1 3-2 4-4 5z" fill="currentColor" stroke="none" opacity="0.7" />
+
+        {/* shoulders + torso */}
+        <path d="M22 44c1-8 8-13 18-13s17 5 18 13v22H22z" fill="currentColor" opacity="0.12" />
+        <path d="M22 44c1-8 8-13 18-13s17 5 18 13" />
+        <path d="M22 44v22M58 44v22" opacity="0.5" />
+
+        {/* THE SACRED THREAD — three strands crossing the torso diagonally */}
+        <path d="M27 36L55 66" strokeWidth="2.6" />
+        <path d="M31 34L59 64" strokeWidth="1.5" opacity="0.6" />
+        <path d="M23 38L51 68" strokeWidth="1.5" opacity="0.6" />
+
+        {/* brahmagranthi — the knot on the thread */}
+        <circle cx="41" cy="50" r="3.6" fill="currentColor" stroke="none" />
+        <circle cx="41" cy="50" r="6" strokeWidth="1.2" opacity="0.55" />
+      </g>
+    </svg>
+  )
+}
+
 // ── JAIMALA — two crossed wedding garlands (the iconic varmala moment) ──
 export function Jaimala({ className = '' }) {
   return (
@@ -376,6 +408,148 @@ export function Jaimala({ className = '' }) {
         })}
         {/* knot where they cross */}
         <circle cx="40" cy="60" r="4" fill="currentColor" stroke="none" />
+      </g>
+    </svg>
+  )
+}
+
+// ── BOUND KNOT — two interlocking rings tied by a ribbon.
+//    Sits BETWEEN the two family cards: the literal joining of two families.
+//    (A decorative "❀" glyph used to sit there, which said nothing.)
+export function BoundRings({ className = '' }) {
+  return (
+    <svg viewBox="0 0 80 80" className={className} fill="none" aria-hidden="true">
+      <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+        {/* left ring */}
+        <circle cx="31" cy="40" r="16" strokeWidth="3" />
+        {/* right ring, overlapping */}
+        <circle cx="49" cy="40" r="16" strokeWidth="3" />
+        {/* the overlap redrawn brighter so the link reads clearly */}
+        <path d="M40 25.3a16 16 0 0 0 0 29.4 16 16 0 0 0 0-29.4z" strokeWidth="1.2" opacity="0.55" />
+        {/* tiny jewels at the crossing points */}
+        <circle cx="40" cy="25" r="2.4" fill="currentColor" stroke="none" />
+        <circle cx="40" cy="55" r="2.4" fill="currentColor" stroke="none" />
+      </g>
+    </svg>
+  )
+}
+
+// ── TWO FAMILIES — two groups of figures standing together beneath a garland.
+//    Heads the "Two Families, One Bond" section. Earlier attempts here (a plain
+//    Kalash, an abstract tied knot, a handshake) either said nothing about a
+//    union or failed to read at 64px. A group of figures is unambiguous: you see
+//    people, in two groups, joined at the centre.
+export function TwoFamilies({ className = '' }) {
+  return (
+    <svg viewBox="0 0 80 80" className={className} fill="none" aria-hidden="true">
+      <g stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        {/* garland arc blessing both families, with marigold beads */}
+        <path d="M12 22C24 9 56 9 68 22" strokeWidth="1.3" opacity="0.45" fill="none" />
+        {[
+          [14, 21],
+          [27, 13],
+          [40, 10.5],
+          [53, 13],
+          [66, 21],
+        ].map(([cx, cy], i) => (
+          <circle key={i} cx={cx} cy={cy} r={i === 2 ? 2.4 : 1.8} fill="currentColor" stroke="none" opacity="0.55" />
+        ))}
+
+        {/* ── LEFT FAMILY — a parent and a child ── */}
+        {/* parent */}
+        <circle cx="17" cy="36" r="5.2" fill="currentColor" opacity="0.16" />
+        <circle cx="17" cy="36" r="5.2" />
+        <path d="M9 64V50c0-4.4 3.6-8 8-8s8 3.6 8 8v14" fill="currentColor" opacity="0.12" />
+        <path d="M9 64V50c0-4.4 3.6-8 8-8s8 3.6 8 8v14" />
+        {/* child beside them, holding on */}
+        <circle cx="29" cy="45" r="3.6" fill="currentColor" opacity="0.16" />
+        <circle cx="29" cy="45" r="3.6" />
+        <path d="M24 64v-8c0-2.8 2.2-5 5-5s5 2.2 5 5v8" fill="currentColor" opacity="0.12" />
+        <path d="M24 64v-8c0-2.8 2.2-5 5-5s5 2.2 5 5v8" />
+
+        {/* ── RIGHT FAMILY — mirrored ── */}
+        <circle cx="63" cy="36" r="5.2" fill="currentColor" opacity="0.16" />
+        <circle cx="63" cy="36" r="5.2" />
+        <path d="M71 64V50c0-4.4-3.6-8-8-8s-8 3.6-8 8v14" fill="currentColor" opacity="0.12" />
+        <path d="M71 64V50c0-4.4-3.6-8-8-8s-8 3.6-8 8v14" />
+        <circle cx="51" cy="45" r="3.6" fill="currentColor" opacity="0.16" />
+        <circle cx="51" cy="45" r="3.6" />
+        <path d="M56 64v-8c0-2.8-2.2-5-5-5s-5 2.2-5 5v8" fill="currentColor" opacity="0.12" />
+        <path d="M56 64v-8c0-2.8-2.2-5-5-5s-5 2.2-5 5v8" />
+
+        {/* the heart at the centre — the two families joined */}
+        <path
+          d="M40 62c-4.6-3.4-7.4-6-7.4-9.2 0-2.4 1.9-4.2 4.2-4.2 1.4 0 2.6.7 3.2 1.7.6-1 1.8-1.7 3.2-1.7 2.3 0 4.2 1.8 4.2 4.2 0 3.2-2.8 5.8-7.4 9.2z"
+          fill="currentColor"
+          stroke="none"
+          opacity="0.9"
+        />
+
+        {/* ground line tying the whole group together */}
+        <path d="M8 64h64" strokeWidth="1.5" opacity="0.45" />
+      </g>
+    </svg>
+  )
+}
+
+// ── THE COUPLE — two crowned figures side by side beneath a shared garland,
+//    the bride's saree pallu and the groom's turban distinguishing them.
+//    Heads the Couple section, where a Mangalsutra used to sit — that is the
+//    bride's necklace alone, so it represented only half the pair.
+export function CoupleMotif({ className = '' }) {
+  return (
+    <svg viewBox="0 0 88 80" className={className} fill="none" aria-hidden="true">
+      <g stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        {/* shared garland arching over both — the varmala */}
+        <path d="M12 26C22 12 66 12 76 26" strokeWidth="1.3" opacity="0.45" fill="none" />
+        {[
+          [14, 25],
+          [26, 15],
+          [44, 11.5],
+          [62, 15],
+          [74, 25],
+        ].map(([cx, cy], i) => (
+          <circle key={i} cx={cx} cy={cy} r={i === 2 ? 2.5 : 1.9} fill="currentColor" stroke="none" opacity="0.55" />
+        ))}
+
+        {/* ── GROOM (left) — turban with a small plume ── */}
+        <path d="M22 34c0-5 12-5 12 0 0 1-.5 2-.5 2h-11s-.5-1-.5-2z" fill="currentColor" stroke="none" opacity="0.85" />
+        <path d="M23 33c1-3 10-3 11 0" strokeWidth="1.4" opacity="0.7" />
+        <path d="M28 27c.5-4 3-5 3-5-.8 3.5-1.2 4-3 5z" fill="currentColor" stroke="none" opacity="0.7" />
+        {/* face */}
+        <circle cx="28" cy="42" r="5.6" fill="currentColor" opacity="0.14" />
+        <circle cx="28" cy="42" r="5.6" />
+        {/* shoulders / sherwani */}
+        <path d="M18 70V58c0-4.4 4.4-8 10-8s10 3.6 10 8v12" fill="currentColor" opacity="0.12" />
+        <path d="M18 70V58c0-4.4 4.4-8 10-8s10 3.6 10 8v12" />
+        {/* collar */}
+        <path d="M24 51l4 4 4-4" strokeWidth="1.5" opacity="0.65" />
+
+        {/* ── BRIDE (right) — veil / pallu over the head ── */}
+        <path d="M52 40c0-8 14-8 14 0" strokeWidth="1.5" opacity="0.8" />
+        <path d="M51 44c-1 10 0 18 3 26" strokeWidth="1.4" opacity="0.5" />
+        <path d="M67 44c1 10 0 18-3 26" strokeWidth="1.4" opacity="0.5" />
+        {/* face */}
+        <circle cx="59" cy="43" r="5.4" fill="currentColor" opacity="0.14" />
+        <circle cx="59" cy="43" r="5.4" />
+        {/* bindi + maang tikka */}
+        <circle cx="59" cy="39.5" r="1.5" fill="currentColor" stroke="none" />
+        {/* shoulders / saree */}
+        <path d="M49 70V59c0-4.4 4.4-8 10-8s10 3.6 10 8v11" fill="currentColor" opacity="0.12" />
+        <path d="M49 70V59c0-4.4 4.4-8 10-8s10 3.6 10 8v11" />
+        {/* layered necklace */}
+        <path d="M54 52c3 3 7 3 10 0" strokeWidth="1.4" opacity="0.7" />
+
+        {/* the heart between them — the two joined */}
+        <path
+          d="M44 62c-3.6-2.7-5.8-4.7-5.8-7.2 0-1.9 1.5-3.3 3.3-3.3 1.1 0 2 .5 2.5 1.3.5-.8 1.4-1.3 2.5-1.3 1.8 0 3.3 1.4 3.3 3.3 0 2.5-2.2 4.5-5.8 7.2z"
+          fill="currentColor"
+          stroke="none"
+          opacity="0.9"
+        />
+
+        {/* ground line */}
+        <path d="M14 70h60" strokeWidth="1.4" opacity="0.4" />
       </g>
     </svg>
   )
@@ -414,6 +588,48 @@ export function Agni({ className = '' }) {
         {/* the kund (fire altar) — stepped trapezoid */}
         <path d="M20 50h40l6 10H14z" fill="currentColor" stroke="none" opacity="0.9" />
         <path d="M14 60h52v6H14z" fill="currentColor" stroke="none" opacity="0.7" />
+      </g>
+    </svg>
+  )
+}
+
+// ── LIVE BROADCAST — a video camera with a play mark, plus signal arcs.
+//    Unmistakably "video", which is what the live-stream section needs; the arcs
+//    pulse outward on a stagger so it also reads as broadcasting live.
+export function LiveBroadcast({ className = '' }) {
+  return (
+    <svg viewBox="0 0 80 80" className={className} fill="none" aria-hidden="true">
+      <g stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
+        {/* signal arcs rising from the camera, each pulsing on a delay */}
+        {[0, 1, 2].map((i) => (
+          <g
+            key={i}
+            className="animate-signal"
+            // ripple outward from the lens, not the svg corner
+            style={{ animationDelay: `${i * 0.4}s`, transformOrigin: '40px 46px' }}
+          >
+            <path
+              d={`M${26 - i * 6} ${26 - i * 6}a${20 + i * 8} ${20 + i * 8} 0 0 1 ${28 + i * 12} 0`}
+              strokeWidth={1.7 - i * 0.3}
+              fill="none"
+              opacity={0.8 - i * 0.2}
+            />
+          </g>
+        ))}
+
+        {/* camera body */}
+        <rect x="16" y="38" width="34" height="24" rx="5" fill="currentColor" opacity="0.16" />
+        <rect x="16" y="38" width="34" height="24" rx="5" strokeWidth="2.2" />
+
+        {/* lens barrel on the right — the classic video-camera silhouette */}
+        <path d="M50 46l12-6v22l-12-6z" fill="currentColor" opacity="0.22" />
+        <path d="M50 46l12-6v22l-12-6z" strokeWidth="2.2" />
+
+        {/* play triangle on the body */}
+        <path d="M29 44.5v11l9-5.5z" fill="currentColor" stroke="none" opacity="0.95" />
+
+        {/* small record dot, glowing */}
+        <circle className="animate-glow" cx="22" cy="44" r="2.2" fill="#E0173C" stroke="none" />
       </g>
     </svg>
   )
@@ -939,6 +1155,8 @@ export function EventIcon({ name, className = '' }) {
       return <GroomPortrait className={className} />
     case 'pellikuthuru':
       return <BridePortrait className={className} />
+    case 'upanayanam':
+      return <Yagnopaveetham className={className} />
     case 'haldi':
       return <HaldiBowl className={className} />
     case 'mehendi':
