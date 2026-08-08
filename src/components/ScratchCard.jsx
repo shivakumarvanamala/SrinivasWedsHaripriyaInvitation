@@ -108,9 +108,9 @@ export default function ScratchCard({
   const BRUSH = 26
   const TAP_BRUSH = 20
   // Fraction of foil that must be scratched off before the rest falls away.
-  // 20% takes a deliberate scratch or two — well above what a tap clears (~1-2%),
-  // so taps only tease the text underneath.
-  const REVEAL_AT = 0.2
+  // 12% is about one deliberate swipe — still well above what a tap clears
+  // (~1-2%), so taps only tease the text underneath rather than revealing it.
+  const REVEAL_AT = 0.12
 
   // Erase a smooth, continuous stroke from the previous point to this one so
   // fast drags don't leave gaps (the main cause of "sometimes it doesn't work").

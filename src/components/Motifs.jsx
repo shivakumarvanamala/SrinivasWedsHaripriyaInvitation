@@ -298,6 +298,60 @@ export function Thoranam({ className = '' }) {
   )
 }
 
+// ── PEACOCK PAIR (నెమలి జంట) ───────────────────────────────────────────
+//  Two peacocks facing each other across a small bud. The pair is the classic
+//  Indian emblem of a married couple, and the peacock is the motif woven into
+//  Kanchipuram wedding silk — so it heads the ornamental `Divider` below on
+//  BOTH the bride-side and groom-side invitations.
+//
+//  Drawn as ONE bird and then mirrored, so the two are guaranteed symmetric.
+//  Everything inherits `currentColor`, so it takes the gold of its container.
+export function PeacockPair({ className = '' }) {
+  const Bird = () => (
+    <g>
+      {/* body — a comma tapering down into the tail */}
+      <path
+        d="M0 13.5 C -1.6 9, -1.4 5.4, 0.8 3.2 C 2.6 1.4, 5 1.6, 6 3.4 C 7 5.2, 5.6 7.4, 3.6 8 C 2 8.5, 0.8 10.6, 0 13.5 Z"
+        fill="currentColor"
+        opacity="0.88"
+      />
+      {/* head + the little beak, turned inward toward its mate */}
+      <circle cx="6.4" cy="3" r="1.9" fill="currentColor" />
+      <path d="M8.1 2.6 L10.4 2.1 L8.1 3.5 Z" fill="currentColor" opacity="0.85" />
+      {/* the three-feather crest */}
+      <line x1="6.2" y1="0.9" x2="5.6" y2="-1.4" stroke="currentColor" strokeWidth="0.55" opacity="0.85" />
+      <line x1="6.8" y1="0.8" x2="7" y2="-1.6" stroke="currentColor" strokeWidth="0.55" opacity="0.85" />
+      <line x1="7.3" y1="1.1" x2="8.3" y2="-1" stroke="currentColor" strokeWidth="0.55" opacity="0.85" />
+      <circle cx="5.5" cy="-1.7" r="0.5" fill="currentColor" />
+      <circle cx="7" cy="-1.9" r="0.5" fill="currentColor" />
+      <circle cx="8.5" cy="-1.3" r="0.5" fill="currentColor" />
+      {/* the trailing tail, with two eye-feathers at its tips */}
+      <path d="M0 13.5 C -4 15.5, -7.5 17, -10.5 17.5" stroke="currentColor" strokeWidth="0.7" opacity="0.6" fill="none" />
+      <path d="M0.5 12 C -3.5 13.4, -7 14.4, -9.5 14.6" stroke="currentColor" strokeWidth="0.6" opacity="0.45" fill="none" />
+      <ellipse cx="-10.8" cy="17.6" rx="1.5" ry="1" fill="currentColor" opacity="0.75" />
+      <ellipse cx="-9.8" cy="14.7" rx="1.2" ry="0.85" fill="currentColor" opacity="0.55" />
+    </g>
+  )
+
+  return (
+    <svg viewBox="0 0 60 40" className={className} fill="none" aria-hidden="true">
+      {/* left bird, facing right */}
+      <g transform="translate(19 11)">
+        <Bird />
+      </g>
+      {/* right bird — the same shape mirrored, facing left */}
+      <g transform="translate(41 11) scale(-1 1)">
+        <Bird />
+      </g>
+      {/* the bud the pair flank, where the lotus diamond used to sit */}
+      <path d="M30 9.5 C 28.4 12, 28.4 15, 30 17 C 31.6 15, 31.6 12, 30 9.5 Z" fill="currentColor" opacity="0.85" />
+      <circle cx="30" cy="20.4" r="1.5" fill="currentColor" />
+      {/* the ground the two stand on */}
+      <path d="M14 31 C 22 33.4, 38 33.4, 46 31" stroke="currentColor" strokeWidth="0.8" opacity="0.4" fill="none" />
+    </svg>
+  )
+}
+
 export function Lotus({ className = '' }) {
   return (
     <svg viewBox="0 0 100 60" className={className} fill="none" aria-hidden="true">
@@ -416,6 +470,43 @@ export function Jaimala({ className = '' }) {
 // ── BOUND KNOT — two interlocking rings tied by a ribbon.
 //    Sits BETWEEN the two family cards: the literal joining of two families.
 //    (A decorative "❀" glyph used to sit there, which said nothing.)
+// ── UNITY KNOT (ముడి) — the two families tied together ────────────────
+//  Replaces the earlier `BoundRings` (two thin interlocking circles), which
+//  turned to mush at the 36px medallion size: it was all hairline outline with
+//  no solid mass, so the two rings merged into a single blur.
+//
+//  This is the muhurtham knot instead — one cord entering from each family's
+//  side, tied through itself at the centre, with two tassels falling below.
+//  Built from THICK strokes (5–6px in a 80px box) so it stays legible when
+//  shrunk, and drawn symmetric about the centre line so it sits calmly between
+//  the two cards it separates. Inherits `currentColor`, so the same component
+//  works gold-on-dark and dark-on-gold.
+export function UnityKnot({ className = '' }) {
+  return (
+    <svg viewBox="0 0 80 80" className={className} fill="none" aria-hidden="true">
+      <g stroke="currentColor" strokeLinecap="round" fill="none">
+        {/* the two cords, entering from the outer edges — one per family */}
+        <path d="M3 40 C 15 40, 21 31, 27 31" strokeWidth="5.5" opacity="0.85" />
+        <path d="M77 40 C 65 40, 59 49, 53 49" strokeWidth="5.5" opacity="0.85" />
+        {/* the knot — two thick loops threaded through each other */}
+        <path d="M27 31 C 18 31, 18 49, 31 49 C 45 49, 47 31, 35 31 Z" strokeWidth="5.5" />
+        <path d="M53 49 C 62 49, 62 31, 49 31 C 35 31, 33 49, 45 49 Z" strokeWidth="5.5" />
+      </g>
+      {/* the bead at the heart of the knot */}
+      <circle cx="40" cy="40" r="4.2" fill="currentColor" />
+      {/* the two tassels hanging from it */}
+      <g stroke="currentColor" strokeLinecap="round" fill="none">
+        <path d="M34 53 L 32 64" strokeWidth="2.6" opacity="0.6" />
+        <path d="M46 53 L 48 64" strokeWidth="2.6" opacity="0.6" />
+      </g>
+      <circle cx="32" cy="66.5" r="2.4" fill="currentColor" opacity="0.75" />
+      <circle cx="48" cy="66.5" r="2.4" fill="currentColor" opacity="0.75" />
+    </svg>
+  )
+}
+
+// NOTE: superseded by UnityKnot above — kept only for reference. Not used
+// anywhere; the Families medallion now renders UnityKnot.
 export function BoundRings({ className = '' }) {
   return (
     <svg viewBox="0 0 80 80" className={className} fill="none" aria-hidden="true">
@@ -1096,20 +1187,18 @@ export function BrideArch({ className = '' }) {
   )
 }
 
-// Horizontal ornamental divider with a central lotus
+// Horizontal ornamental divider with a central PEACOCK PAIR.
+//  The glyph is WIDER than the lotus diamond it replaces (a pair of birds, not
+//  a single point), so the box is 16×11 rather than 6×6 and the rules are
+//  trimmed a little to keep the divider's overall width unchanged. It is also
+//  sized generously on purpose: at the lotus's h-6 the two birds collapsed into
+//  an unreadable smudge, and a divider glyph has to survive being glanced at.
 export function Divider({ className = '' }) {
   return (
-    <div className={`flex items-center justify-center gap-4 ${className}`} aria-hidden="true">
-      <span className="gold-rule w-16 md:w-28" />
-      <svg viewBox="0 0 40 40" className="h-6 w-6 text-gold" fill="none">
-        <path
-          d="M20 4c3 6 3 10 0 16-3-6-3-10 0-16zM20 36c-3-6-3-10 0-16 3 6 3 10 0 16zM4 20c6-3 10-3 16 0-6 3-10 3-16 0zM36 20c-6 3-10 3-16 0 6-3 10-3 16 0z"
-          fill="currentColor"
-          opacity="0.85"
-        />
-        <circle cx="20" cy="20" r="2.5" fill="currentColor" />
-      </svg>
-      <span className="gold-rule w-16 md:w-28" />
+    <div className={`flex items-center justify-center gap-3 ${className}`} aria-hidden="true">
+      <span className="gold-rule w-12 md:w-20" />
+      <PeacockPair className="h-11 w-16 shrink-0 text-gold md:h-12 md:w-[4.5rem]" />
+      <span className="gold-rule w-12 md:w-20" />
     </div>
   )
 }

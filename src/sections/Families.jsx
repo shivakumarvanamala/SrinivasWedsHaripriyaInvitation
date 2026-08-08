@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { Divider, TwoFamilies, BoundRings, GroomIcon, BrideIcon } from '../components/Motifs'
+import { Divider, TwoFamilies, UnityKnot, GroomIcon, BrideIcon } from '../components/Motifs'
 import { useLang } from '../i18n'
 
 function FamilyCard({ side, icon, delay }) {
@@ -55,10 +55,14 @@ export default function Families({ content }) {
               whileInView={{ scale: 1, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.25 }}
+              // GOLD-FILL treatment: a gold-gradient disc with the knot cut out
+              // of it in the dark plum. Deliberately kept this way here — the
+              // bride-side site uses the inverse (gold knot on a dark disc), so
+              // the two invitations differ on this one detail on purpose.
               className="flex h-16 w-16 items-center justify-center rounded-full border border-gold/60 bg-gold-gradient text-plum-deep shadow-glow"
             >
-              {/* two interlocking rings — the two families joined */}
-              <BoundRings className="h-9 w-9" />
+              {/* the muhurtham knot — one cord from each family, tied at the centre */}
+              <UnityKnot className="h-9 w-9" />
             </motion.span>
           </div>
 
